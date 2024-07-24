@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -8,14 +8,130 @@ import {
   TouchableOpacity,
   Switch,
   Image,
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+
+// Replace with your API endpoint
+const API_URL = 'https://your-backend-api.com/settings';
 
 export default function Settings() {
   const [form, setForm] = useState({
     emailNotifications: true,
     pushNotifications: false,
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch current settings from backend when component mounts
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error('Failed to fetch settings');
+      }
+      const data = await response.json();
+      setForm(data);
+    } catch (err) {
+      setError('Failed to load settings');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateSettings = async (updatedSettings) => {
+    try {
+      setLoading(true);
+      const response = await fetch(API_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedSettings),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update settings');
+      }
+      const data = await response.json();
+      setForm(data);
+      Alert.alert('Success', 'Settings updated successfully');
+    } catch (err) {
+      setError('Failed to update settings');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSwitchChange = (key) => {
+    const newValue = !form[key];
+    const updatedSettings = { ...form, [key]: newValue };
+    setForm(updatedSettings);
+    updateSettings(updatedSettings);
+  };
+
+  const handleProfilePress = () => {
+    // Navigate to profile page
+    Alert.alert('Profile', 'Navigate to profile page');
+  };
+
+  const handleLanguagePress = () => {
+    // Handle language change
+    Alert.alert('Language', 'Open language selection');
+  };
+
+  const handleLocationPress = () => {
+    // Handle location change
+    Alert.alert('Location', 'Open location selection');
+  };
+
+  const handleContactUsPress = () => {
+    // Handle contact us action
+    Alert.alert('Contact Us', 'Open contact us form');
+  };
+
+  const handleReportBugPress = () => {
+    // Handle report bug action
+    Alert.alert('Report Bug', 'Open bug report form');
+  };
+
+  const handleRateAppPress = () => {
+    // Handle rate app action
+    Alert.alert('Rate App', 'Open app store');
+  };
+
+  const handleTermsPrivacyPress = () => {
+    // Handle terms and privacy action
+    Alert.alert('Terms and Privacy', 'Open terms and privacy page');
+  };
+
+  const handleLogoutPress = () => {
+    // Handle user logout
+    Alert.alert('Log Out', 'Are you sure you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log Out', onPress: () => console.log('User logged out') },
+    ]);
+  };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.errorText}>{error}</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f8f8f8' }}>
@@ -24,7 +140,8 @@ export default function Settings() {
           <View style={styles.headerAction}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
+                // Navigate back
+                console.log('Navigate back');
               }}>
               <FeatherIcon
                 color="#000"
@@ -40,7 +157,8 @@ export default function Settings() {
           <View style={[styles.headerAction, { alignItems: 'flex-end' }]}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
+                // Handle more options
+                console.log('More options');
               }}>
               <FeatherIcon
                 color="#000"
@@ -56,14 +174,12 @@ export default function Settings() {
 
             <View style={styles.sectionBody}>
               <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}
+                onPress={handleProfilePress}
                 style={styles.profile}>
                 <Image
                   alt=""
                   source={{
-                    uri: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80',
+                    uri: '/https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80',
                   }}
                   style={styles.profileAvatar} />
 
@@ -87,9 +203,7 @@ export default function Settings() {
             <View style={styles.sectionBody}>
               <View style={[styles.rowWrapper, styles.rowFirst]}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleLanguagePress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Language</Text>
 
@@ -106,9 +220,7 @@ export default function Settings() {
 
               <View style={styles.rowWrapper}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleLocationPress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Location</Text>
 
@@ -130,9 +242,7 @@ export default function Settings() {
                   <View style={styles.rowSpacer} />
 
                   <Switch
-                    onValueChange={emailNotifications =>
-                      setForm({ ...form, emailNotifications })
-                    }
+                    onValueChange={() => handleSwitchChange('emailNotifications')}
                     style={{ transform: [{ scaleX: 0.95 }, { scaleY: 0.95 }] }}
                     value={form.emailNotifications} />
                 </View>
@@ -145,9 +255,7 @@ export default function Settings() {
                   <View style={styles.rowSpacer} />
 
                   <Switch
-                    onValueChange={pushNotifications =>
-                      setForm({ ...form, pushNotifications })
-                    }
+                    onValueChange={() => handleSwitchChange('pushNotifications')}
                     style={{ transform: [{ scaleX: 0.95 }, { scaleY: 0.95 }] }}
                     value={form.pushNotifications} />
                 </View>
@@ -161,9 +269,7 @@ export default function Settings() {
             <View style={styles.sectionBody}>
               <View style={[styles.rowWrapper, styles.rowFirst]}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleContactUsPress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Contact Us</Text>
 
@@ -178,9 +284,7 @@ export default function Settings() {
 
               <View style={styles.rowWrapper}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleReportBugPress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Report Bug</Text>
 
@@ -195,9 +299,7 @@ export default function Settings() {
 
               <View style={styles.rowWrapper}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleRateAppPress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Rate in App Store</Text>
 
@@ -212,9 +314,7 @@ export default function Settings() {
 
               <View style={[styles.rowWrapper, styles.rowLast]}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleTermsPrivacyPress}
                   style={styles.row}>
                   <Text style={styles.rowLabel}>Terms and Privacy</Text>
 
@@ -239,9 +339,7 @@ export default function Settings() {
                   { alignItems: 'center' },
                 ]}>
                 <TouchableOpacity
-                  onPress={() => {
-                    // handle onPress
-                  }}
+                  onPress={handleLogoutPress}
                   style={styles.row}>
                   <Text style={[styles.rowLabel, styles.rowLabelLogout]}>
                     Log Out
@@ -264,7 +362,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    width : '100vw'
+    width: '100vw',
   },
   /** Header */
   header: {
@@ -397,5 +495,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
     color: '#dc2626',
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    margin: 20,
   },
 });

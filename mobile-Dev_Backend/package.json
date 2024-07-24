@@ -1,0 +1,16 @@
+{
+  "name": "mobile-dev_backend",
+  "version": "1.0.0",
+  "description": "mobile-App_Dev_Backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "asamoah953"
+  },
+  "author": "Asamoah Clinton",
+  "license": "ISC"
+}

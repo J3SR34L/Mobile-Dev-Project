@@ -1,126 +1,94 @@
-'use strict';
- 
-var React = require('react-native');
-var TimerMixin = require('react-timer-mixin');
-var moment = require('moment');
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
+import moment from 'moment';
+import { Actions } from 'react-native-router-flux';
 
-var {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-  ListView,
-  ScrollView,
-  Component,
-  TouchableHighlight,
-} = React;
- 
-var Chat = React.createClass({
-  mixins: [TimerMixin],
-  
-  onCancel() {
-    this.props.navigator.pop();
-  },
-  
-  componentDidMount() {
+const Chat = () => {
+  const [newMessage, setNewMessage] = useState('');
+  const [dataSource, setDataSource] = useState([
+    {
+      user_id: 1,
+      content: "Hello World!",
+      created_at: new Date(),
+    },
+    {
+      user_id: 2,
+      content: "World isn't here, please leave a message.",
+      created_at: new Date(),
+    }
+  ]);
+
+  const scrollViewRef = useRef(null);
+  const user = { id: 1 };
+
+  useEffect(() => {
     // Load messages from Flux instead of example dataSource
-  },
-  
-  getInitialState() {
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    
-    return {
-      newMessage: '',
-      user: {
-        id: 1,
-      },
-      dataSource: ds.cloneWithRows([{
-        user_id: 1,
-        content: "Hello World!",
-        created_at: new Date(),
-      },
-      {
-        user_id: 2,
-        content: "World isn't here, please leave a message.",
-        created_at: new Date(),
-      }]),
-    };
-  },
-  
-  inputFocused(refName) {
-    this.setTimeout(
-      () => {
-        var scrollResponder = this.refs.scrollView.getScrollResponder();
-        scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
-          React.findNodeHandle(this.refs[refName]),
-          60, //additionalOffset
-          true
-        );
-      },
-      50
-    );
-  },
-  
-  updateMessageState(text){
-    this.setState({newMessage: text});
-  },
-  
-  sendMessage() {
-    // Send your message via Flux
-    console.log("Sending: " + this.state.newMessage);
-  },
-  
-  render() {
-    return (
-      <ScrollView
-          automaticallyAdjustContentInsets={false}
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps={false}
-          showsVerticalScrollIndicator={false}
-          ref='scrollView'
-          contentContainerStyle={styles.container}>
-        <ListView style={styles.listView}
-            automaticallyAdjustContentInsets={false}
-            scrollEnabled={false}
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRow} />
-        <TextInput
-          style={styles.newInput}
-          value={this.state.newMessage}
-          onSubmitEditing={this.sendMessage}
-          placeholder="Message..."
-          returnKeyType="send"
-          ref="newMessage"
-          onFocus={this.inputFocused.bind(this, "newMessage")}
-          onBlur={() => {this.refs.scrollView.scrollTo(0,0)}}
-          onChangeText={this.updateMessageState} />
-      </ScrollView>
-    );
-  },
-  
-  renderRow(rowData, sectionID, rowID) {
-    return (
-      <View style={[styles.messageRow, rowData.user_id == this.state.user.id && styles.meRow]}>
-        <TouchableHighlight
-          underlayColor='#dddddd'
-          style={[styles.messageContent, rowData.user_id == this.state.user.id && styles.me]}>
-            <View>
-                <Text style={styles.message}>{rowData.content}</Text>
-            </View>
-        </TouchableHighlight>
-        <Text style={styles.messageDate}>{moment(rowData.created_at).fromNow()}</Text>
-      </View>
-    );
-  },
-  
-});
+  }, []);
 
-var styles = StyleSheet.create({
+  const handleInputFocus = () => {
+    setTimeout(() => {
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({ y: 100, animated: true });
+      }
+    }, 50);
+  };
+
+  const handleSendMessage = () => {
+    console.log("Sending: " + newMessage);
+    // Implement your send message logic here
+    // Example:
+    setDataSource([...dataSource, {
+      user_id: user.id,
+      content: newMessage,
+      created_at: new Date(),
+    }]);
+    setNewMessage('');
+  };
+
+  const renderRow = (rowData) => (
+    <View style={[styles.messageRow, rowData.user_id === user.id && styles.meRow]}>
+      <TouchableOpacity
+        style={[styles.messageContent, rowData.user_id === user.id && styles.me]}
+        onPress={() => {/* Handle press if needed */}}
+      >
+        <View>
+          <Text style={styles.message}>{rowData.content}</Text>
+        </View>
+      </TouchableOpacity>
+      <Text style={styles.messageDate}>{moment(rowData.created_at).fromNow()}</Text>
+    </View>
+  );
+
+  return (
+    <ScrollView
+      keyboardDismissMode="on-drag"
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+      ref={scrollViewRef}
+      contentContainerStyle={styles.container}
+    >
+      <View style={styles.listView}>
+        {dataSource.map((item, index) => renderRow(item, null, index))}
+      </View>
+      <TextInput
+        style={styles.newInput}
+        value={newMessage}
+        onSubmitEditing={handleSendMessage}
+        placeholder="Message..."
+        returnKeyType="send"
+        onFocus={handleInputFocus}
+        onBlur={() => scrollViewRef.current?.scrollTo({ y: 0, animated: true })}
+        onChangeText={setNewMessage}
+      />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:60,
-    marginBottom:50,
+    marginTop: 60,
+    marginBottom: 50,
   },
   listView: {
     flex: 2,
@@ -130,39 +98,36 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     fontSize: 16,
-    padding:10,
-    height:50,
+    padding: 10,
+    height: 50,
   },
   messageRow: {
-    alignItems:'flex-start',
-    marginBottom:5,
+    alignItems: 'flex-start',
+    marginBottom: 5,
   },
   meRow: {
-    alignItems:'flex-end'
+    alignItems: 'flex-end',
   },
   messageContent: {
     flexDirection: 'column',
     alignItems: 'flex-start',
     padding: 10,
-    borderRadius:10,
-    backgroundColor:'#ebebeb',
+    borderRadius: 10,
+    backgroundColor: '#ebebeb',
   },
   me: {
     alignItems: 'flex-end',
-    backgroundColor:'#d2fffd',
+    backgroundColor: '#d2fffd',
   },
   message: {
     fontSize: 16,
-    color: '#888'
+    color: '#888',
   },
   messageDate: {
     fontSize: 12,
     color: '#656565',
-    padding:2,
-  },
-  text: {
-    color:'#000',
+    padding: 2,
   },
 });
- 
-module.exports = Chat;
+
+export default Chat;

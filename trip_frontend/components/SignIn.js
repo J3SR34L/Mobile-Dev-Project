@@ -6,26 +6,57 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  Alert
 } from 'react-native';
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {  // Assuming you're using react-navigation
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+
+  const handleSignIn = async () => {
+    const { email, password } = form;
+
+    if (!email || !password) {
+      Alert.alert('Error', 'Email and password are required');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('Success', 'Sign-in successful');
+        // Navigate to another screen upon successful sign-in
+        navigation.navigate('Home');  // Assuming you have a Home screen
+      } else {
+        Alert.alert('Error', data.errors ? data.errors[0].msg : 'Something went wrong');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Network error');
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>Welcome back!</Text>
-
           <Text style={styles.subtitle}>Sign in to your account</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Email address</Text>
-
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
@@ -35,12 +66,12 @@ export default function SignIn() {
               placeholder="john@example.com"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
-              value={form.email} />
+              value={form.email}
+            />
           </View>
 
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Password</Text>
-
             <TextInput
               autoCorrect={false}
               clearButtonMode="while-editing"
@@ -49,14 +80,12 @@ export default function SignIn() {
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               secureTextEntry={true}
-              value={form.password} />
+              value={form.password}
+            />
           </View>
 
           <View style={styles.formAction}>
-            <TouchableOpacity
-              onPress={() => {
-                // handle onPress
-              }}>
+            <TouchableOpacity onPress={handleSignIn}>
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign in</Text>
               </View>
@@ -65,8 +94,10 @@ export default function SignIn() {
 
           <TouchableOpacity
             onPress={() => {
-              // handle link
-            }}>
+              // Navigate to the SignUp screen
+              navigation.navigate('SignUp');
+            }}
+          >
             <Text style={styles.formFooter}>
               Don't have an account?{' '}
               <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
@@ -84,7 +115,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    width : '100vw'
   },
   header: {
     marginVertical: 36,

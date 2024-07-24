@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Actions } from 'react-native-router-flux';
 
 const MessageNew = () => {
   return (
@@ -18,25 +19,25 @@ const MessageNew = () => {
       <View style={styles.content}>
         <Text style={styles.title}>No Messages</Text>
         <Text style={styles.subtitle}>Sign In Or Register To Plan Your Trips</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => Actions.signin()}>
           <Text style={styles.buttonText}>Register/Sign in</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => Actions.start()}>
           <MaterialIcons name="home" size={24} color="#000" />
           <Text style={styles.footerText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => Actions.messages()}>
           <MaterialIcons name="mail" size={24} color="#000" />
           <Text style={styles.footerText}>Messages</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => Actions.extra()}>
           <MaterialIcons name="flight-takeoff" size={24} color="#000" />
-          <Text style={styles.footerText}>My Trips</Text>
+          <Text style={styles.footerText}>Extra</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => Actions.signin()}>
           <MaterialIcons name="account-circle" size={24} color="#000" />
           <Text style={styles.footerText}>Sign In</Text>
         </TouchableOpacity>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eee',
-    width:'100vw'
+    width: '100vw',
   },
   header: {
     flexDirection: 'row',

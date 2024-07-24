@@ -7,8 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
-
+import { Actions } from 'react-native-router-flux';
 
 export default function StartPage() {
   return (
@@ -29,18 +28,25 @@ export default function StartPage() {
             </View>
           </Text>
           <Text style={styles.text}>
-          Our website uses cookies that are essential for its operation.if you agree to us also using analytical,functional, and targeting cookies that allow us to improve our website, personalise content,and show you relevant adverts,please accept and continue.
+            Our website uses cookies that are essential for its operation. If you agree to us also using analytical, functional, and targeting cookies that allow us to improve our website, personalise content, and show you relevant adverts, please accept and continue.
           </Text>
         </View>
 
-        <TouchableOpacity
-          onPress={() => {
-            // handle onPress
-            
-          }}>
-
+        <TouchableOpacity onPress={() => Actions.signin()}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Accept and Continue</Text>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => Actions.signup()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => Actions.extra()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Extra</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -110,6 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
+    marginVertical: 8,  // Added margin for spacing between buttons
   },
   buttonText: {
     fontSize: 15,

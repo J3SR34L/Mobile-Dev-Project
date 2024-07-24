@@ -5,11 +5,24 @@ import {
   View,
   TouchableOpacity,
   Text,
+  Alert,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Messages() {
+  const handleUserPlusPress = () => {
+    Alert.alert('User Plus', 'Handle adding a new user');
+  };
+
+  const handleChevronLeftPress = () => {
+    Alert.alert('Chevron Left', 'Handle navigation back');
+  };
+
+  const handleStartNewConversationPress = () => {
+    Alert.alert('Start New Conversation', 'Navigate to start a new conversation');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
@@ -18,74 +31,46 @@ export default function Messages() {
             <View style={styles.headerAction} />
 
             <View style={styles.headerAction}>
-                
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}>
-                <FeatherIcon
-                  color="#266EF1"
-                  name="user-plus"
-                  size={21} />
+              <TouchableOpacity onPress={handleUserPlusPress}>
+                <FeatherIcon color="#266EF1" name="user-plus" size={21} />
               </TouchableOpacity>
             </View>
           </View>
-          <FeatherIcon
-                color="#1D2A32"
-                name="chevron-left"
-                size={30} />
+          <TouchableOpacity onPress={handleChevronLeftPress}>
+            <FeatherIcon color="#1D2A32" name="chevron-left" size={30} />
+          </TouchableOpacity>
           <Text style={styles.headerTitle}>Messages</Text>
         </View>
 
         <View style={styles.empty}>
           <View style={styles.fake}>
             <View style={styles.fakeCircle} />
-
             <View>
               <View style={[styles.fakeLine, { width: 120 }]} />
-
               <View style={styles.fakeLine} />
-
-              <View
-                style={[
-                  styles.fakeLine,
-                  { width: 70, marginBottom: 0 },
-                ]} />
+              <View style={[styles.fakeLine, { width: 70, marginBottom: 0 }]} />
             </View>
           </View>
 
           <View style={[styles.fake, { opacity: 0.5 }]}>
             <View style={styles.fakeCircle} />
-
             <View>
               <View style={[styles.fakeLine, { width: 120 }]} />
-
               <View style={styles.fakeLine} />
-
-              <View
-                style={[
-                  styles.fakeLine,
-                  { width: 70, marginBottom: 0 },
-                ]} />
+              <View style={[styles.fakeLine, { width: 70, marginBottom: 0 }]} />
             </View>
           </View>
 
           <Text style={styles.emptyTitle}>Your inbox is empty</Text>
-
           <Text style={styles.emptyDescription}>
             Once you start a new conversation, you'll see new messages here
           </Text>
         </View>
 
-        <TouchableOpacity
-          onPress={() => {
-            // handle onPress
-          }}>
+        <TouchableOpacity onPress={handleStartNewConversationPress}>
           <View style={styles.btn}>
             <View style={{ width: 34 }} />
-
             <Text style={styles.btnText}>Start New Conversation</Text>
-
             <MaterialCommunityIcons
               color="#fff"
               name="plus"
