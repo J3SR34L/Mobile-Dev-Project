@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { Actions } from 'react-native-router-flux';
 
 const Login = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.closeIcon}>
+        <TouchableOpacity style={styles.closeIcon} onPress={() => Actions.pop()}>
           <Entypo name="cross" size={24} color="#007bff" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsIcon}>
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffff',
     padding: 20,
-    width : '100vw'
   },
   header: {
     flexDirection: 'row',

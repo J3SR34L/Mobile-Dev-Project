@@ -9,14 +9,48 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import axios from 'axios';
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+
+  const handleSignUp = async () => {
+    const { name, email, password, confirmPassword } = form;
+
+    // Basic validation
+    if (!name || !email || !password || !confirmPassword) {
+      alert('All fields are required');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://your-backend-url/signup', {
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
+
+      if (response.status === 200) {
+        alert('User registered successfully');
+        navigation.navigate('SignIn');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error registering user');
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e8ecf4' }}>
       <View style={styles.container}>
@@ -26,7 +60,8 @@ export default function SignUp() {
               <FeatherIcon
                 color="#1D2A32"
                 name="chevron-left"
-                size={30} />
+                size={30}
+                onPress={() => navigation.goBack()} />
             </View>
 
             <Text style={styles.title}>Let's Get Started!</Text>
@@ -95,10 +130,7 @@ export default function SignUp() {
             </View>
 
             <View style={styles.formAction}>
-              <TouchableOpacity
-                onPress={() => {
-                  // handle onPress
-                }}>
+              <TouchableOpacity onPress={handleSignUp}>
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Get Started</Text>
                 </View>
@@ -108,9 +140,7 @@ export default function SignUp() {
         </KeyboardAwareScrollView>
 
         <TouchableOpacity
-          onPress={() => {
-            // handle link
-          }}
+          onPress={() => navigation.navigate('SignIn')}
           style={{ marginTop: 'auto' }}>
           <Text style={styles.formFooter}>
             Already have an account?{' '}
@@ -141,7 +171,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#929292',
   },
-  /** Header */
   header: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -155,7 +184,6 @@ const styles = StyleSheet.create({
     marginLeft: -16,
     marginBottom: 6,
   },
-  /** Form */
   form: {
     marginBottom: 24,
     paddingHorizontal: 24,
@@ -174,7 +202,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 0.15,
   },
-  /** Input */
   input: {
     marginBottom: 16,
   },
@@ -196,7 +223,6 @@ const styles = StyleSheet.create({
     borderColor: '#C9D3DB',
     borderStyle: 'solid',
   },
-  /** Button */
   btn: {
     flexDirection: 'row',
     alignItems: 'center',
