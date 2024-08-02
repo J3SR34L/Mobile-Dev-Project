@@ -1,105 +1,70 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {Link} from "expo-router"
 
-const Home = () => {
+const App = () => {
   return (
     <View style={styles.container}>
+      <Image source={require('../assets/1.jpeg')} style={styles.backgroundImage} />
       <View style={styles.header}>
-        <TouchableOpacity style={styles.menuButton}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your menu icon
-            style={styles.menuIcon}
-          />
+        <Text style={styles.headerText}>My Trips</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Add Travel Plans</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>All Bookings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingsIcon}>
+      <Link href="/Settings"> <FontAwesome5 name="cog" size={24} color="#007bff" /></Link>   
         </TouchableOpacity>
-        <View style={styles.profileContainer}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your profile icon
-            style={styles.profileIcon}
-          />
         </View>
       </View>
-      <TouchableOpacity style={styles.inviteButton}>
-        <Text style={styles.inviteButtonText}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your emoji icon
-            style={styles.emojiIcon}
-          />
-          Invite friends, earn $5,000
-        </Text>
-        <Image
-          source={require('../assets/aeroplane.svg')} // Replace with your arrow icon
-          style={styles.arrowIcon}
-        />
-      </TouchableOpacity>
-      <View style={styles.categories}>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your hotel icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Hotels</Text>
+      <View style={styles.content}>
+        <Text style={styles.contentText}>Plan Your Journey To Anywhere With Trip.Com</Text>
+        <TouchableOpacity style={styles.searchButton}>
+         <Link href="/Search"> <Text style={styles.searchButtonText}>Search Bookings</Text></Link>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your airplane icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Airplanes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your car icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Cars</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your home icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Homes</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.categories}>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your money icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Invite</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your bank icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Finance</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your wallet icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Wallet</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.category}>
-          <Image
-            source={require('../assets/aeroplane.svg')} // Replace with your tree icon
-            style={styles.categoryIcon}
-          />
-          <Text style={styles.categoryText}>Trees</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.dealsContainer}>
-        <Text style={styles.dealsTitle}>Deals</Text>
-        <TouchableOpacity style={styles.viewAllButton}>
-          <Text style={styles.viewAllButtonText}>View all</Text>
-        </TouchableOpacity>
-        <View style={styles.deals}>
-          {/* Add your deals here */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>EUROPE</Text>
+          <View style={styles.cardContainer}>
+            <View style={styles.card}>
+              <Image source={require('../assets/1.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Best Things To Do In Paris</Text>
+            </View>
+            <View style={styles.card}>
+              <Image source={require('../assets/2.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Luxury Hotels In London</Text>
+            </View>
+            <View style={styles.card}>
+              <Image source={require('../assets/3.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Attractions In Barcelona</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>ASIA</Text>
+          <View style={styles.cardContainer}>
+            <View style={styles.card}>
+              <Image source={require('../assets/3.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Things To Do In Vietnam</Text>
+            </View>
+            <View style={styles.card}>
+              <Image source={require('../assets/2.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Things To Do In Tokyo</Text>
+            </View>
+            <View style={styles.card}>
+              <Image source={require('../assets/1.jpeg')} style={styles.cardImage} />
+              <Text style={styles.cardText}>Popular Things To Do In India</Text>
+            </View>
+          </View>
         </View>
       </View>
+      <TouchableOpacity style={styles.settingsIcon}>
+      <Link href="/Message"> <Image source={require('../assets/message-solid.svg')} style={{width:'30px',height:'30px',marginLeft:'350px'}}/></Link>   
+        </TouchableOpacity>
     </View>
   );
 };
@@ -107,90 +72,88 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.1,
   },
   header: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
   },
-  menuButton: {
-    // Styles for the menu button
+  button: {
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
   },
-  menuIcon: {
-    // Styles for the menu icon
-  },
-  profileContainer: {
-    // Styles for the profile container
-  },
-  profileIcon: {
-    // Styles for the profile icon
-  },
-  inviteButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#007bff', // Blue color
-    margin: 16,
-    borderRadius: 8,
-  },
-  inviteButtonText: {
-    color: '#fff',
+  buttonText: {
     fontSize: 16,
   },
-  emojiIcon: {
-    // Styles for the emoji icon
+  content: {
+    padding: 20,
   },
-  arrowIcon: {
-    // Styles for the arrow icon
+  contentText: {
+    fontSize: 18,
+    marginBottom: 20,
   },
-  categories: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
+  searchButton: {
+    padding: 15,
+    backgroundColor: '#007bff',
+    borderRadius: 5,
+    marginBottom: 20,
   },
-  category: {
-    // Styles for each category
-    flex: 1,
-    alignItems: 'center',
-    padding: 16,
-    margin: 8,
-    backgroundColor: '#f0f0f0', // Light grey background
-    borderRadius: 8,
+  searchButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  categoryIcon: {
-    // Styles for category icons
-    width: 40,
-    height: 40,
-    marginBottom: 8,
+  section: {
+    marginBottom: 20,
   },
-  categoryText: {
-    // Styles for category text
-  },
-  dealsContainer: {
-    padding: 16,
-  },
-  dealsTitle: {
+  sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 10,
   },
-  viewAllButton: {
-    // Styles for the "View all" button
+  cardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  viewAllButtonText: {
-    // Styles for the "View all" button text
+  card: {
+    width: '32%',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
   },
-  deals: {
-    // Styles for the deals section
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 16,
+  cardImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  cardText: {
+    fontSize: 14,
   },
 });
 
-export default Home;
+export default App;

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {Link} from 'expo-router';
 
 const Login = () => {
   return (
@@ -15,12 +16,7 @@ const Login = () => {
           <FontAwesome5 name="cog" size={24} color="#007bff" />
         </TouchableOpacity>
       </View>
-      <View style={styles.imageContainer}>
-        {/* Replace with your actual image */}
-        <View style={styles.imagePlaceholder}>
-          <Text>Image</Text>
-        </View>
-      </View>
+     
       <Text style={styles.title}>Trip.com</Text>
       <Text style={styles.subtitle}>Register/Sign In</Text>
 
@@ -34,10 +30,10 @@ const Login = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => {}}>
         <Entypo name="mail" size={24} color="#fff" />
-        <Text style={styles.buttonText}>Continue With Email</Text>
+  <Link href="/SignIn"> <Text style={styles.buttonText}>Continue With Email</Text></Link>     
       </TouchableOpacity>
 
-      <Text style={styles.continueText}>Or Continue With</Text>
+      
     </View>
   );
 };

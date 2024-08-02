@@ -26,7 +26,7 @@ export default function StartPage() {
           <Text style={styles.title}>
             Travel the world{'\n'}with{' '}
             <View style={styles.appName}>
-              <Text style={styles.appNameText}>Trip.com</Text>
+              <Text style={styles.appNameText}>Voyagevits</Text>
             </View>
           </Text>
           <Text style={styles.text}>

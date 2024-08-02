@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Link } from 'expo-router'
 
 export default function Messages() {
   return (
@@ -30,10 +31,10 @@ export default function Messages() {
               </TouchableOpacity>
             </View>
           </View>
-          <FeatherIcon
+   <Link href="/Home">      <FeatherIcon
                 color="#1D2A32"
                 name="chevron-left"
-                size={30} />
+                size={30} /></Link> 
           <Text style={styles.headerTitle}>Messages</Text>
         </View>
 

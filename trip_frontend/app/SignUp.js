@@ -116,7 +116,7 @@ export default function SignUp() {
           style={{ marginTop: 'auto' }}>
           <Text style={styles.formFooter}>
             Already have an account?{' '}
-          <Link href="/SignIn">  <Text style={{ textDecorationLine: 'underline' }}>Sign in</Text></Link>
+          <Link href="/LoginOptions">  <Text style={{ textDecorationLine: 'underline' }}>Sign in</Text></Link>
           </Text>
         </TouchableOpacity>
       </View>

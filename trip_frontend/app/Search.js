@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import {Link} from "expo-router"
 
 const Search = () => {
   const [destination, setDestination] = useState('');
@@ -17,7 +18,7 @@ const Search = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <FontAwesome5 name="arrow-left" size={24} color="#fff" />
+        <Link href="/Home"><FontAwesome5 name="arrow-left" size={24} color="#fff" /></Link>  
         </TouchableOpacity>
       </View>
 

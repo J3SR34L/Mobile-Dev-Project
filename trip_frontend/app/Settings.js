@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {Link} from 'expo-router'
 
 export default function Settings() {
   const [form, setForm] = useState({
@@ -26,10 +27,10 @@ export default function Settings() {
               onPress={() => {
                 // handle onPress
               }}>
-              <FeatherIcon
+        <Link href="/Home">      <FeatherIcon
                 color="#000"
                 name="arrow-left"
-                size={24} />
+                size={24} /></Link>
             </TouchableOpacity>
           </View>
 
