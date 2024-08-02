@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
+import {router } from 'expo-router';
+import { Link } from 'expo-router';
 
 
 export default function StartPage() {
@@ -32,15 +33,14 @@ export default function StartPage() {
           Our website uses cookies that are essential for its operation.if you agree to us also using analytical,functional, and targeting cookies that allow us to improve our website, personalise content,and show you relevant adverts,please accept and continue.
           </Text>
         </View>
-
+   
         <TouchableOpacity
           onPress={() => {
             // handle onPress
-            
           }}>
 
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Accept and Continue</Text>
+        <Link href="/SignUp">    <Text style={styles.buttonText}>Accept and Continue</Text></Link>
           </View>
         </TouchableOpacity>
       </View>

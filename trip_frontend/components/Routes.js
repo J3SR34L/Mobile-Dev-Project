@@ -1,8 +1,8 @@
 import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
 import Home from './Home';
-import SignUp from './SignUp';
-import StartPage from './StartPage';
+import SignUp from '../app/SignUp';
+import StartPage from '../app/StartPage';
 
 
 const Routes = () => (

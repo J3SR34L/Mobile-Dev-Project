@@ -7,13 +7,13 @@ const Home = () => {
       <View style={styles.header}>
         <TouchableOpacity style={styles.menuButton}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your menu icon
+            source={require('../assets/aeroplane.svg')} // Replace with your menu icon
             style={styles.menuIcon}
           />
         </TouchableOpacity>
         <View style={styles.profileContainer}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your profile icon
+            source={require('../assets/aeroplane.svg')} // Replace with your profile icon
             style={styles.profileIcon}
           />
         </View>
@@ -21,41 +21,41 @@ const Home = () => {
       <TouchableOpacity style={styles.inviteButton}>
         <Text style={styles.inviteButtonText}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your emoji icon
+            source={require('../assets/aeroplane.svg')} // Replace with your emoji icon
             style={styles.emojiIcon}
           />
           Invite friends, earn $5,000
         </Text>
         <Image
-          source={require('../assets/aeroplane.png')} // Replace with your arrow icon
+          source={require('../assets/aeroplane.svg')} // Replace with your arrow icon
           style={styles.arrowIcon}
         />
       </TouchableOpacity>
       <View style={styles.categories}>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your hotel icon
+            source={require('../assets/aeroplane.svg')} // Replace with your hotel icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Hotels</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your airplane icon
+            source={require('../assets/aeroplane.svg')} // Replace with your airplane icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Airplanes</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your car icon
+            source={require('../assets/aeroplane.svg')} // Replace with your car icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Cars</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your home icon
+            source={require('../assets/aeroplane.svg')} // Replace with your home icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Homes</Text>
@@ -64,28 +64,28 @@ const Home = () => {
       <View style={styles.categories}>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your money icon
+            source={require('../assets/aeroplane.svg')} // Replace with your money icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Invite</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your bank icon
+            source={require('../assets/aeroplane.svg')} // Replace with your bank icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Finance</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your wallet icon
+            source={require('../assets/aeroplane.svg')} // Replace with your wallet icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Wallet</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.category}>
           <Image
-            source={require('../assets/aeroplane.png')} // Replace with your tree icon
+            source={require('../assets/aeroplane.svg')} // Replace with your tree icon
             style={styles.categoryIcon}
           />
           <Text style={styles.categoryText}>Trees</Text>

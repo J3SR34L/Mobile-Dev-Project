@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {Link} from "expo-router"
 
 export default function SignIn() {
   const [form, setForm] = useState({
@@ -69,7 +70,7 @@ export default function SignIn() {
             }}>
             <Text style={styles.formFooter}>
               Don't have an account?{' '}
-              <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
+            <Link href="/SignUp"> <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text></Link>
             </Text>
           </TouchableOpacity>
         </View>

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import {Link} from 'expo-router';
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -23,10 +24,11 @@ export default function SignUp() {
         <KeyboardAwareScrollView>
           <View style={styles.header}>
             <View style={styles.headerBack}>
+              <Link href="/StartPage">
               <FeatherIcon
                 color="#1D2A32"
                 name="chevron-left"
-                size={30} />
+                size={30} /></Link>
             </View>
 
             <Text style={styles.title}>Let's Get Started!</Text>
@@ -100,7 +102,7 @@ export default function SignUp() {
                   // handle onPress
                 }}>
                 <View style={styles.btn}>
-                  <Text style={styles.btnText}>Get Started</Text>
+                 <Link href="/Home"> <Text style={styles.btnText}>Get Started</Text></Link>
                 </View>
               </TouchableOpacity>
             </View>
@@ -114,7 +116,7 @@ export default function SignUp() {
           style={{ marginTop: 'auto' }}>
           <Text style={styles.formFooter}>
             Already have an account?{' '}
-            <Text style={{ textDecorationLine: 'underline' }}>Sign in</Text>
+          <Link href="/SignIn">  <Text style={{ textDecorationLine: 'underline' }}>Sign in</Text></Link>
           </Text>
         </TouchableOpacity>
       </View>
